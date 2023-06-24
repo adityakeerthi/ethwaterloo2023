@@ -1,6 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
+// Import the Firebase app
+const firebase = require("./firebase");
+
+// Import routes
+const loginRoutes = require("./routes/login");
+const signupRoutes = require("./routes/signup");
+const auditRoutes = require("./routes/audit");
+
 process.on("uncaughtException", (err, origin) => {
     console.log("Uncaught Exception:", err, "Origin", origin);
 });
@@ -14,7 +22,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => { 
+// Use the routes
+app.use("/login", loginRoutes(firebase));
+app.use("/signup", signupRoutes(firebase));
+app.use("/audit", auditRoutes);
+
+app.get("/", (req, res) => {
     res.send("test");
 });
 
