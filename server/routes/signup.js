@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { createUserWithEmailAndPassword } = require("firebase/auth");
+const { collection, doc, setDoc } = require("firebase/firestore");
 
 module.exports = (firebase) => {
     const { auth, db } = firebase;
@@ -15,8 +16,8 @@ module.exports = (firebase) => {
             const user = userCredential.user;
 
             // Create a document in Firestore with user's email
-            const userRef = db.collection('users').doc(user.uid);
-            await userRef.set({ email });
+            const userRef = doc(collection(db, 'users'), user.uid);
+            await setDoc(userRef, { email });
 
             res.json({ message: "Account created successfully", user });
         } catch (error) {
