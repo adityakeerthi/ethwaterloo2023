@@ -4,7 +4,7 @@ const { collection, doc, setDoc, updateDoc, arrayUnion } = require("firebase/fir
 const firebase = require("./firebase");
 
 const { db } = firebase;
-const deploymentsFilePath = path.join(__dirname, "./", "deployments.json");
+const deploymentsFilePath = path.join(__dirname, "./", "documents.json");
 
 function watchDeployments() {
 	setInterval(async () => {
@@ -16,7 +16,7 @@ function watchDeployments() {
 			const date = new Date(Number(deployment.timeStamp) * 1000).toISOString();
 			const link = `https://etherscan.io/tx/${deployment.hash}`;
       const contractLink = `https://etherscan.io/address/${deployment.contractAddress}`;
-			const status = "invalid";
+			const status = "Invalid";
       const protocol = deployment.protocol;
 
 			// Add to deployments collection
@@ -35,7 +35,7 @@ function watchDeployments() {
 				{ merge: true }
 			);
 		}
-	}, 5000); // Check every 5 seconds
+	}, 10); // Check every 10 seconds
 }
 
 watchDeployments();

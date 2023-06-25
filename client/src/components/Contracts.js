@@ -2,15 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Contracts.css';
 import { List, ListItem, ListItemText, Modal, Paper } from '@material-ui/core';
 
-function Contracts() {
-  const [contracts, setContracts] = useState([]);
+function Contracts({ contracts }) {
   const [selectedContract, setSelectedContract] = useState(null);
-
-  useEffect(() => {
-    fetch("http://localhost:3005/contracts")
-      .then(response => response.json())
-      .then(data => setContracts(data));
-  }, []);
 
   const handleOpen = (contract) => {
     setSelectedContract(contract);
@@ -33,8 +26,9 @@ function Contracts() {
       {selectedContract && (
         <Modal open={true} onClose={handleClose}>
           <div className="modal-content">
-            <h4>ID: {selectedContract.id}</h4>
+            <h4>Contract Address: <a href={selectedContract.contractLink} target="_blank" rel="noreferrer">{selectedContract.id}</a></h4>
             <h4>Protocol: {selectedContract.protocol}</h4>
+            <h4>Deployments:</h4>
             <ul>
               {selectedContract.deployments.map(deployment => (
                 <li key={deployment}>
@@ -44,7 +38,7 @@ function Contracts() {
                 </li>
               ))}
             </ul>
-            <a href={selectedContract.url} target="_blank" rel="noreferrer">Link</a>
+            
           </div>
         </Modal>
       )}

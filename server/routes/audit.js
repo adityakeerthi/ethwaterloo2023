@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { collection, doc, setDoc, updateDoc, arrayUnion } = require("firebase/firestore");
 
 module.exports = (firebase) => {
 	const { admin, db } = firebase;
@@ -19,19 +20,16 @@ module.exports = (firebase) => {
 		try {
 			// Verify the token
 			const decodedToken = await admin.auth().verifyIdToken(auth_token);
-
 			// Get the user document
 			const userDoc = await admin.firestore().collection("users").doc(decodedToken.uid).get();
+
 
 			// Check if the user is an auditor
 			if (userDoc.exists && userDoc.data().isAuditor) {
 				// Update the deployment status in Firestore
-				const deploymentRef = admin
-					.firestore()
-					.collection("deployments")
-					.doc(deploymentHash);
-				await deploymentRef.update({ status });
-
+				const deploymentRef = doc(collection(db, "deployments"), deploymentHash);
+        await updateDoc(deploymentRef, { status: status });
+        
 				return res.status(200).send("Deployment status updated successfully");
 			} else {
 				return res.status(403).send("Forbidden: User is not an auditor");

@@ -14,7 +14,7 @@ const auditRoutes = require("./routes/audit");
 const deploymentsRoutes = require("./routes/deployments");
 const contractsRoutes = require("./routes/contracts");
 
-require("./getDeployments");
+// require("./getDeployments");
 
 process.on("uncaughtException", (err, origin) => {
 	console.log("Uncaught Exception:", err, "Origin", origin);

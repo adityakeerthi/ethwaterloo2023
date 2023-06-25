@@ -13,9 +13,14 @@ module.exports = (firebase) => {
 			const userCredential = await signInWithEmailAndPassword(auth, email, password);
 			const token = await userCredential.user.getIdToken();
 
+      // Get users name
+      const userDoc = await admin.firestore().collection("users").doc(userCredential.user.uid).get();
+      const name = userDoc.data().name;
+
 			// Set cookie
 			res.cookie("auth_token", token, { httpOnly: true, sameSite: "strict" });
-			res.json({ message: "Logged in successfully" });
+      // Return name
+			res.json({ message: "Logged in successfully", name: name });
 		} catch (error) {
 			res.status(400).json({ error: error.message });
 		}
@@ -32,7 +37,12 @@ module.exports = (firebase) => {
 		try {
 			const decodedToken = await admin.auth().verifyIdToken(auth_token);
 			req.user = decodedToken;
-			res.json({ message: "Logged in successfully" });
+
+      // get users name
+      const userDoc = await admin.firestore().collection("users").doc(decodedToken.uid).get();
+      const name = userDoc.data().name;
+
+			res.json({ message: "Logged in successfully", name: name });
 		} catch (error) {
 			console.error("Error verifying token:", error);
 			return res.status(401).json({ message: "Not authenticated" });
