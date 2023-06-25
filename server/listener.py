@@ -73,7 +73,7 @@ for deployer in deployers:
                     "timeStamp": contract['timeStamp'],
                     "hash": contract['hash'],
                     "contractAddress": contract['to'],
-                    "SourceCode": "hello"#SourceCode
+                    "SourceCode": SourceCode
                 }
                 json_result.append(output)
 
