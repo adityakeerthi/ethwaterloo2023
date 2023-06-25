@@ -1,11 +1,20 @@
-
-
-[{
-  "timeStamp":"1664188943", 
-  "hash":"0x6976547de71f735026a93e8asdasf680ed5ce6da0372df4856e4aaa1fff6c4",
-  "contractAddress": "blahblah"
-},{
-  "timeStamp":"1664188943", 
-  "hash":"0x6976547de71f735026a93e8a642d00f680ed5ce6da0372df4856e4aaa1fff6c4",
-  "contractAddress": "blahblah"
-}]
+[
+	{
+		"timeStamp": "1664188943",
+		"hash": "0x6976547de71f735026a93e8asdasffd680ed5ce6da0372df4856e4aaa1fff6c4",
+		"contractAddress": "blahblah",
+    "protocol": "ERC20"
+	},
+	{
+		"timeStamp": "1664188943",
+		"hash": "0x6976547de71f735026a93e8asdasf680ed5ce6da0372df4856e4aaa1fff6c4",
+		"contractAddress": "blahblah",
+    "protocol": "ERC20"
+	},
+	{
+		"timeStamp": "1664188943",
+		"hash": "0x6976547de71f735026a93e8a642d00f680ed5ce6da0372df4856e4aaa1fff6c4",
+		"contractAddress": "blahblah",
+    "protocol": "ERC20"
+	}
+]
