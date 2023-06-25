@@ -15,11 +15,13 @@ function watchDeployments() {
 			const contract = deployment.contractAddress;
 			const date = new Date(Number(deployment.timeStamp) * 1000).toISOString();
 			const link = `https://etherscan.io/tx/${deployment.hash}`;
+      const contractLink = `https://etherscan.io/address/${deployment.contractAddress}`;
 			const status = "invalid";
+      const protocol = deployment.protocol;
 
 			// Add to deployments collection
 			const deploymentRef = doc(collection(db, "deployments"), deployment.hash);
-			await setDoc(deploymentRef, { contract, date, link, status });
+			await setDoc(deploymentRef, { contract, date, link, status, protocol });
 
 			// Add hash to contracts collection under contractAddress
 			const contractRef = doc(collection(db, "contracts"), contract);
@@ -27,6 +29,8 @@ function watchDeployments() {
 				contractRef,
 				{
 					deployments: arrayUnion(deployment.hash),
+          protocol: deployment.protocol,
+          contractLink: contractLink,
 				},
 				{ merge: true }
 			);

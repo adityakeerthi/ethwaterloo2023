@@ -41,25 +41,25 @@ module.exports = (firebase) => {
 		}
 	});
 
-	// New GET route to fetch all deployments
+	// New GET route to fetch all contracts
 	router.get("/", async (req, res) => {
 		try {
-			// Reference to the deployments collection
-			const deploymentsRef = admin.firestore().collection("deployments");
+			// Reference to the contracts collection
+			const contractsRef = admin.firestore().collection("contracts");
 
-			// Retrieve all documents from the deployments collection
-			const snapshot = await deploymentsRef.get();
+			// Retrieve all documents from the contracts collection
+			const snapshot = await contractsRef.get();
 
 			// Array to store the deployment data
-			let deployments = [];
+			let contracts = [];
 
-			// Loop through each document and store its data in the deployments array
+			// Loop through each document and store its data in the contracts array
 			snapshot.forEach((doc) => {
-				deployments.push({ id: doc.id, ...doc.data() });
+				contracts.push({ id: doc.id, ...doc.data() });
 			});
 
-			// Send the deployments array as the response
-			res.status(200).json(deployments);
+			// Send the contracts array as the response
+			res.status(200).json(contracts);
 		} catch (error) {
 			// Send an error response in case of failure
 			res.status(500).send(error.message);

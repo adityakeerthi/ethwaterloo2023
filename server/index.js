@@ -11,6 +11,8 @@ const firebase = require("./firebase");
 const loginRoutes = require("./routes/login");
 const signupRoutes = require("./routes/signup");
 const auditRoutes = require("./routes/audit");
+const deploymentsRoutes = require("./routes/deployments");
+const contractsRoutes = require("./routes/contracts");
 
 require("./getDeployments");
 
@@ -33,6 +35,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/login", loginRoutes(firebase));
 app.use("/signup", signupRoutes(firebase));
 app.use("/audit", auditRoutes(firebase));
+app.use("/deployments", deploymentsRoutes(firebase));
+app.use("/contracts", contractsRoutes(firebase));
 
 app.get("/", (req, res) => {
 	res.send("test");
