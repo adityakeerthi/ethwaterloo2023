@@ -8,7 +8,7 @@ module.exports = (firebase) => {
 
     // POST request to handle signup
     router.post("/", async (req, res) => {
-        const { email, password } = req.body;
+        const { email, name, password, auditRequest, companyEmail, companyName, phoneNumber } = req.body;
 
         try {
             // Create user using Firebase Authentication
@@ -17,7 +17,7 @@ module.exports = (firebase) => {
 
             // Create a document in Firestore with user's email
             const userRef = doc(collection(db, 'users'), user.uid);
-            await setDoc(userRef, { email });
+            await setDoc(userRef, { email, name, auditRequest, isAuditor: auditRequest, companyEmail, companyName, phoneNumber, audits: {inProgress: [], completed: []} });
 
             res.json({ message: "Account created successfully", user });
         } catch (error) {

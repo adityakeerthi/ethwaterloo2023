@@ -9,6 +9,8 @@ const loginRoutes = require("./routes/login");
 const signupRoutes = require("./routes/signup");
 const auditRoutes = require("./routes/audit");
 
+require("./documents");
+
 process.on("uncaughtException", (err, origin) => {
     console.log("Uncaught Exception:", err, "Origin", origin);
 });
