@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Contracts.css';
 import { List, ListItem, ListItemText, Modal, Paper } from '@material-ui/core';
+import { grey } from '@material-ui/core/colors';
 
 function Contracts({ contracts }) {
   const [selectedContract, setSelectedContract] = useState(null);
@@ -18,7 +19,7 @@ function Contracts({ contracts }) {
       <h3>Contracts</h3>
       <List>
         {contracts.map(contract => (
-          <ListItem button key={contract.id} onClick={() => handleOpen(contract)}>
+          <ListItem button key={contract.id} onClick={() => handleOpen(contract)} style={{background: "#D3D3D3", margin: "5px", borderRadius: "10px"}}>
             <ListItemText primary={contract.id} />
           </ListItem>
         ))}

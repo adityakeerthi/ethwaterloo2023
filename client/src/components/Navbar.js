@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-function Navbar({contracts, deployments, setContracts, setDeployments, user, setUser}) {
+function Navbar({handleProtocolChange, selectedProtocol, setSelectedProtocol, contracts, deployments, setContracts, setDeployments, user, setUser, refreshDeployments}) {
 	const classes = useStyles();
 	const [openLogin, setOpenLogin] = useState(false);
 	const [openSignup, setOpenSignup] = useState(false);
@@ -77,7 +77,6 @@ function Navbar({contracts, deployments, setContracts, setDeployments, user, set
 		companyName: "",
 		phoneNumber: "",
 	});
-	const [selectedProtocol, setSelectedProtocol] = useState("");
 
   
   useEffect(() => {
@@ -116,7 +115,7 @@ function Navbar({contracts, deployments, setContracts, setDeployments, user, set
 		const { name, checked } = e.target;
 		setSignupData((prevData) => ({
 			...prevData,
-			[name]: checked,
+			auditRequest: checked,
 		}));
 	};
 
@@ -136,17 +135,7 @@ function Navbar({contracts, deployments, setContracts, setDeployments, user, set
 		setSignupData({ ...signupData, [e.target.name]: e.target.value });
 	};
 
-	const handleProtocolChange = (event, value) => {
-    if (value == null || value === selectedProtocol || value === "" || value === "All") {
-      setSelectedProtocol(value);
-      return;
-    }
-
-    setSelectedProtocol(value);
-
-    setContracts(contracts.filter(contract => contract.protocol === value));
-    setDeployments(deployments.filter(deployment => deployment.protocol === value));
-	};
+	
 
 	return (
 		<ThemeProvider theme={theme}>

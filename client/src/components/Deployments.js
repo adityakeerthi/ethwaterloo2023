@@ -52,9 +52,9 @@ function Deployments({ deployments, user, onStatusUpdate }) {
       return (
         <FormControl>
           <Select value={deployment.status} onChange={handleAuditStatusChange}>
-            <MenuItem value="invalid">Invalid</MenuItem>
-            <MenuItem value="pending">Pending</MenuItem>
-            <MenuItem value="valid">Valid</MenuItem>
+            <MenuItem value="Invalid">Invalid</MenuItem>
+            <MenuItem value="Pending">Pending</MenuItem>
+            <MenuItem value="Valid">Valid</MenuItem>
           </Select>
         </FormControl>
       );
@@ -68,7 +68,7 @@ function Deployments({ deployments, user, onStatusUpdate }) {
       <h3>Deployments</h3>
       <List>
         {deployments.map(deployment => (
-          <ListItem button key={deployment.id} onClick={() => handleOpen(deployment)}>
+          <ListItem button key={deployment.id} onClick={() => handleOpen(deployment)} style={{background: "#D3D3D3", margin: "5px", borderRadius: "10px"}}>
             <ListItemText primary={deployment.id} />
             {deployment.status}
           </ListItem>
